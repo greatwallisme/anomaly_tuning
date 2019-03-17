@@ -9,7 +9,7 @@ import numpy as np
 from sklearn.model_selection import ParameterGrid
 from sklearn.metrics import auc
 from sklearn.utils import check_random_state
-from sklearn.externals.joblib import Parallel, delayed
+from joblib import Parallel, delayed
 
 from .estimators import AverageKLPE
 
@@ -193,7 +193,7 @@ def anomaly_tuning(X,
     for l in range(n_features):
         U[:, l] = rng.uniform(X_range[l, 0], X_range[l, 1], n_sim)
 
-    res = Parallel(n_jobs=n_jobs, verbose=10)(
+    res = Parallel(n_jobs=n_jobs, verbose=1)(
         delayed(est_tuning)(
             X[train], X[test],
             base_estimator,
