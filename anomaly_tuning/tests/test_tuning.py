@@ -9,7 +9,6 @@ from sklearn.metrics import auc
 from sklearn.utils.testing import assert_true
 from sklearn.utils.testing import assert_array_equal
 from sklearn.utils.testing import assert_array_almost_equal
-from sklearn.utils.testing import assert_equal
 
 from anomaly_tuning.estimators import AverageKLPE
 from anomaly_tuning.estimators import MaxKLPE
@@ -142,7 +141,7 @@ def test_est_tuning():
                                         X_test, 'monte-carlo', U, vol_tot_cube)
             auc_algo[p] = auc(alphas, vol_p)
 
-        assert_equal(np.min(auc_algo), auc_est)
+        assert np.min(auc_algo) == auc_est
 
         clf_test = clf_est.score_samples(X_test)
         proba_offsets_est = (clf_test >= offsets_est[:, np.newaxis])
